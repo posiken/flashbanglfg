@@ -1,12 +1,17 @@
 import discord
 from discord import app_commands
-from discord.ext import commands
 import asyncio
 import aiohttp
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
-from config import DISCORD_TOKEN, DATABASE_URL, SUPPORTED_DUNGEONS, MAX_GROUP_SIZE, GROUP_EXPIRY_HOURS
+from config import (
+    DISCORD_TOKEN, 
+    DATABASE_URL, 
+    SUPPORTED_DUNGEONS, 
+    MAX_GROUP_SIZE, 
+    GROUP_EXPIRY_HOURS
+)
 from models import Base
 from database import (
     get_player, create_player, get_character, create_character,
@@ -17,7 +22,7 @@ from database import (
 from logger import logger
 
 # Database setup
-engine = create_async_engine(DATABASE_URL)
+engine = create_async_engine(DATABASE_URL, echo=True, future=True)
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 class LFGBot(discord.Client):
@@ -45,6 +50,8 @@ class LFGBot(discord.Client):
             await asyncio.sleep(3600)  # Run every hour
 
 client = LFGBot()
+
+# Your command definitions and other code would follow here...
 
 def rate_limit():
     return commands.cooldown(1, 5, commands.BucketType.user)
