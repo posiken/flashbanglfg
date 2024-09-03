@@ -4,11 +4,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-RAIDER_IO_API_KEY = os.getenv('RAIDER_IO_API_KEY')
 DATABASE_URL = os.getenv('DATABASE_URL')
-
-# Bot-specific settings
+SUPPORTED_DUNGEONS = [...] # Your list of dungeons
 MAX_GROUP_SIZE = 5
+GROUP_EXPIRY_HOURS = 24  # Or whatever value you want to set
 
 # The War Within dungeons
 SUPPORTED_DUNGEONS = [
